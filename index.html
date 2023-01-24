@@ -60,8 +60,8 @@
                 <button class="button" type="submit">Отправить</button>
             </form>
         </div>
-        <div class="tab" data-id="wb" data-id="wb">
-            <form action="" class="form">
+        <div class="tab" data-id="wb">
+            <form action="" class="form" data-id="wb">
                 <div>
                     <label for="">
                         token
@@ -95,13 +95,12 @@
         e.preventDefault()
         const id = e.target.dataset.id
         const formData = new FormData(e.target)
-        const data = []
-
+        const data = {}
+        data.id = id
         for (const key of formData.keys()) {
-            data.push(`${key}=${formData.get(key)}`)
+            data[key] = formData.get(key)
         }
-
-        tg.sendData(`${e.target.dataset.id}|${data.join(';')}`)
+        tg.sendData(JSON.stringify(obj))
         tg.close()
     }
 
