@@ -44,19 +44,19 @@
             <button class="button" data-target="wb">Добавить WB</button>
         </div>
         <div class="tab" data-id="ozon">
-            <form action="" class="form">
+            <form action="" class="form" data-id="ozon">
                 <label for="">
                     <input type="text">
                 </label>
-                <button type="submit">Отправить</button>
+                <button class="button" type="submit">Отправить</button>
             </form>
         </div>
-        <div class="tab" data-id="wb">
+        <div class="tab" data-id="wb" data-id="wb">
             <form action="" class="form">
                 <label for="">
                     <input type="text">
                 </label>
-                <button type="submit">Отправить</button>
+                <button class="button" type="submit">Отправить</button>
             </form>
         </div>
     </div>
@@ -75,7 +75,24 @@
             document.querySelector('.tab.active').classList.remove('active')
             const tab = document.querySelector('.tab[data-id="' + id + '"]').classList.add('active')
         }
-    });
+    })
+
+    const forms = document.querySelectorAll('.form')
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        console.log(e.target.dataset.id)
+        console.log(e.target)
+
+        tg.sendData(e.target.dataset.id)
+        tg.close()
+    }
+
+    forms.forEach(item => {
+        item.addEventListener('submit', onSubmit)
+    })
+
+
 </script>
 
 </html>
