@@ -100,7 +100,7 @@
         for (const key of formData.keys()) {
             data[key] = formData.get(key)
         }
-        tg.sendData(JSON.stringify(obj))
+        tg.sendData(JSON.stringify(data))
         tg.close()
     }
 
