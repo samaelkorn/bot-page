@@ -15,10 +15,6 @@
             font-size: 18px;
         }
 
-        .hint {
-            color: var(--tg-theme-hint-color);
-        }
-
         .link {
             color: var(--tg-theme-link-color);
         }
@@ -26,34 +22,59 @@
         .button {
             background: var(--tg-theme-button-color);
             color: var(--tg-theme-button-text-color);
-            border: none;
             font-size: 18px;
         }
 
-        .button:not(:last-child) {
-            margin-bottom: 20px
+        .tab {
+            display: none;
         }
 
-        #usercard {
-            text-align: center;
+        .tab.active {
+            display: block;
         }
     </style>
     <script src="https://telegram.org/js/telegram-web-app.js"></script> <!--Подключаем скрипт от телеграм-->
 </head>
 
 <body>
-    <p>Тут будет список</p> <!--Просто текст для проверки-->
-    <button id="buttonTs">Запрос</button>
+    <div class="tabs">
+        <div class="tab active js-tab" data-id="main">
+            <button class="button">Список токенов</button>
+            <button class="button" data-target="ozon">Добавить OZON</button>
+            <button class="button" data-target="wb">Добавить WB</button>
+        </div>
+        <div class="tab" data-id="ozon">
+            <form action="" class="form">
+                <label for="">
+                    <input type="text">
+                </label>
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+        <div class="tab" data-id="wb">
+            <form action="" class="form">
+                <label for="">
+                    <input type="text">
+                </label>
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
 </body>
 <script>
     let tg = window.Telegram.WebApp //получаем объект webapp телеграма 
 
     tg.expand() //расширяем на все окно  
+    //tg.sendData("test test")
 
-    const buttonTs = document.getElementById("buttonTs")
+    const tabs = document.querySelector('.js-tab')
 
-    buttonTs.addEventListener('click', () => { //вешаем событие на нажатие html-кнопки
-        tg.sendData("test test")
+    tabs.addEventListener('click', (event) => {
+        const id = event.target.dataset.target
+        if (id != undefined) { // если есть атрибут...
+            document.querySelector('.tab.active').classList.remove('active')
+            const tab = document.querySelector('.tab[data-id="' + id + '"]').classList.add('active')
+        }
     });
 </script>
 
